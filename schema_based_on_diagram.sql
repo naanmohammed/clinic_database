@@ -36,6 +36,17 @@ CREATE TABLE invoices (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE invoice_items (
+    id INT PRIMARY KEY,
+    unit_price DECIMAL,
+    quantity INT,
+    total_price DECIMAL,
+    invoice_id INT,
+    treatment_id INT,
+    CONSTRAINT FK_INVOICE_ID FOREIGN KEY (invoice_id) REFERENCES invoices(id),
+    CONSTRAINT FK_TREATMENT_ID FOREIGN KEY (treatment_id) REFERENCES treatments(id)
+);
+
 CREATE INDEX idx_patient_id ON medical_histories (patient_id);
 CREATE INDEX idx_medical_history_id ON medical_histories_treatments (medical_history_id);
 CREATE INDEX idx_treatments_id ON medical_histories_treatments (treatments_id);
