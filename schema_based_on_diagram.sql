@@ -26,6 +26,17 @@ CREATE TABLE medical_histories_treatments (
     PRIMARY KEY (medical_history_id, treatments_id)
 );
 
+CREATE TABLE invoices (
+    id INTEGER,
+    total_amount DECIMAL(5,2),
+    generated_at TIMESTAMP,
+    payed_at TIMESTAMP,
+    medical_history_id INTEGER,
+    CONSTRAINT fk_invoices FOREIGN KEY (medical_history_id) REFERENCES medical_histories (id),
+    PRIMARY KEY (id)
+);
+
 CREATE INDEX idx_patient_id ON medical_histories (patient_id);
 CREATE INDEX idx_medical_history_id ON medical_histories_treatments (medical_history_id);
 CREATE INDEX idx_treatments_id ON medical_histories_treatments (treatments_id);
+CREATE INDEX idx_invoices_id ON invoices (medical_history_id);
