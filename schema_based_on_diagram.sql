@@ -18,4 +18,14 @@ CREATE TABLE medical_histories (
     FOREIGN KEY (patient_id) REFERENCES patients (id)
 );
 
+CREATE TABLE medical_histories_treatments (
+    medical_history_id INTEGER,
+    treatments_id INTEGER,
+    CONSTRAINT fk_medical_history FOREIGN KEY (medical_history_id) REFERENCES medical_histories (id),
+    CONSTRAINT fk_treatment FOREIGN KEY (treatments_id) REFERENCES treatments (id),
+    PRIMARY KEY (medical_history_id, treatments_id)
+);
+
 CREATE INDEX idx_patient_id ON medical_histories (patient_id);
+CREATE INDEX idx_medical_history_id ON medical_histories_treatments (medical_history_id);
+CREATE INDEX idx_treatments_id ON medical_histories_treatments (treatments_id);
